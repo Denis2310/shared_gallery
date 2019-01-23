@@ -1,0 +1,10 @@
+[23-Jan-2019 10:50:18 Europe/Berlin] <h1>Fatal Error</h1><p>Uncaught exception: 'Exception'</p><p>Message: 'The selected route does not exist.'</p><p>Stack Trace: <pre>'#0 C:\xampp\htdocs\framework\public\index.php(50): Core\Router->dispatch('postssss')
+#1 {main}'</pre></p><p>Thrown in: 'C:\xampp\htdocs\framework\Core\Router.php', on line'149'</p>
+[23-Jan-2019 10:52:02 Europe/Berlin] <h1>Fatal Error</h1><p>Uncaught exception: 'Exception'</p><p>Message: 'The selected route does not exist.'</p><p>Stack Trace: <pre>'#0 C:\xampp\htdocs\framework\public\index.php(50): Core\Router->dispatch('home')
+#1 {main}'</pre></p><p>Thrown in: 'C:\xampp\htdocs\framework\Core\Router.php', on line'149'</p>
+[23-Jan-2019 10:52:47 Europe/Berlin] <h1>Fatal Error</h1><p>Uncaught exception: 'Exception'</p><p>Message: 'The selected route does not exist.'</p><p>Stack Trace: <pre>'#0 C:\xampp\htdocs\framework\public\index.php(50): Core\Router->dispatch('index')
+#1 {main}'</pre></p><p>Thrown in: 'C:\xampp\htdocs\framework\Core\Router.php', on line'149'</p>
+[23-Jan-2019 10:55:50 Europe/Berlin] <h1>Fatal Error</h1><p>Uncaught exception: 'Exception'</p><p>Message: 'Method 'addnewaction' in App\Controllers\Home can't be called directly, remove the action suffix'</p><p>Stack Trace: <pre>'#0 C:\xampp\htdocs\framework\public\index.php(50): Core\Router->dispatch('home/addNewActi...')
+#1 {main}'</pre></p><p>Thrown in: 'C:\xampp\htdocs\framework\Core\Router.php', on line'143'</p>
+[23-Jan-2019 10:56:12 Europe/Berlin] <h1>Fatal Error</h1><p>Uncaught exception: 'Exception'</p><p>Message: 'Method 'addnewaction' in App\Controllers\Home can't be called directly, remove the action suffix'</p><p>Stack Trace: <pre>'#0 C:\xampp\htdocs\framework\public\index.php(50): Core\Router->dispatch('home/addNewActi...')
+#1 {main}'</pre></p><p>Thrown in: 'C:\xampp\htdocs\framework\Core\Router.php', on line'143'</p>

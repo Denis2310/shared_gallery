@@ -1,0 +1,12 @@
+{
+	"require": {
+		"twig/twig": "^2.0"
+	},
+
+	"autoload": {
+		"psr-4": {
+			"App\\": "App/",  //Moze i App\\Controllers\\: App/Controllers/ odnosno cijeli namespace sa putanjom do klasa
+			"Core\\": "Core/"
+		}
+	}
+}
