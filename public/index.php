@@ -36,7 +36,8 @@ echo "Query string: ". $_SERVER['QUERY_STRING'];
 
 $router = new Core\Router();
 $router->add_route('', ['controller'=>'Home', 'action'=>'index']);
-$router->add_route('posts', ['controller'=>'Posts', 'action'=>'Index']);
+$router->add_route('login', ['controller'=>'Login', 'action'=>'index']);
+$router->add_route('register', ['controller'=>'Register', 'action'=>'index']);
 $router->add_route('{controller}/{action}');
 $router->add_route('{controller}/{id:\d+}/{action}');
 $router->add_route('admin/{action}/{controller}');

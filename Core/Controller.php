@@ -32,13 +32,16 @@ abstract class Controller
  	*/
 	public function __call($name, $args)
 	{
-		$method = $name . 'Action';
-		
-		if(method_exists($this, $method)) {
-			call_user_func_array([$this, $method], $args);
-		} else {
-			throw new \Exception("Method '$method' not found in controller" . get_class($this));
-		}
+        $method = $name . 'Action';
+
+        if (method_exists($this, $method)) {
+            if ($this->before() !== false) {
+                call_user_func_array([$this, $method], $args);
+                $this->after();
+            }
+        } else {
+        	throw new \Exception("Method $method not found in controller " . get_class($this));	
+        }
 	}
 
 	/**
@@ -46,18 +49,18 @@ abstract class Controller
 	*
 	* @return void
 	*/
-	protected function before()
+	/*protected function before()
 	{
-
-	}
+	 return true;
+	}*/
 
 	/**
 	* After filter - called after an Action method
 	*
 	* @return void
 	*/
-	protected function after()
+	/*protected function after()
 	{
 
-	}
+	}*/
 }

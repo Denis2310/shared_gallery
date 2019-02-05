@@ -1,20 +1,22 @@
 <?php
-namespace App\Models;
+/*namespace App\Models;
 
 use \Core\Model;
 use PDO;
-
+*/
 /**
 * Post model
 */
-class Post extends Model
+
+//class Post extends Model
 {
 	/**
 	* Show all posts
 	*
 	* @return array $result Array of posts
 	*/
-	public static function all()
+
+/*	public static function all()
 	{
 		$db = static::getDB();
 	    $query = $db->query('SELECT * FROM posts');
@@ -23,3 +25,4 @@ class Post extends Model
 	    return $result;
 	}
 }
+*/

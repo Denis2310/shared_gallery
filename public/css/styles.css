@@ -1,0 +1,19 @@
+/**
+* Application styles
+*/
+
+nav {
+	height: 75px;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.app-content {
+	padding-top: 30px;
+}
+
+.form, .btn-images-number {
+	margin-top: 25px;
+}

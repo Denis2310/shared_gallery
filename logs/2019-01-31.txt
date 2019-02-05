@@ -1,0 +1,2 @@
+[31-Jan-2019 09:27:36 Europe/Berlin] <h1>Fatal Error</h1><p>Uncaught exception: 'Exception'</p><p>Message: 'Class 'App\Controllers\Home' does not exist.'</p><p>Stack Trace: <pre>'#0 C:\xampp\htdocs\imager\public\index.php(50): Core\Router->dispatch('')
+#1 {main}'</pre></p><p>Thrown in: 'C:\xampp\htdocs\imager\Core\Router.php', on line'146'</p>

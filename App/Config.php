@@ -30,11 +30,11 @@ class Config
 	* Database name
 	* @var string
 	*/
-	const DB_NAME = 'framework_test';
+	const DB_NAME = 'shared_gallery_db';
 
 	/**
 	* Show or hide error messages on screen
 	* @var boolean
 	*/
-	const SHOW_ERRORS = false;
+	const SHOW_ERRORS = true;
 }

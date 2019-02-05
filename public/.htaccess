@@ -1,6 +1,6 @@
 RewriteEngine On
 
-RewriteBase /framework/public/
+RewriteBase /shared_gallery/public/
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

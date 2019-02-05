@@ -3,7 +3,6 @@ namespace App\Controllers;
 
 use \Core\Controller;
 use \Core\View;
-
 /**
 * Home Controller
 */
@@ -14,7 +13,7 @@ class Home extends Controller
 	*/
 	protected function before()
 	{
-
+		return true;
 	}
 
 	/**
@@ -25,11 +24,8 @@ class Home extends Controller
 
 	}
 
-	/**
-	* Method for Home/index.php view
-	*/
 	public function indexAction()
 	{
-		return View::renderTemplate('Home/index.php');
+		return View::renderTemplate('home.php');
 	}
 }
