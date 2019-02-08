@@ -12,19 +12,26 @@ use \App\Models\User;
 class Register extends Controller
 {
 	/**
-	* Function that could be executed before any other method in Posts Controller
+	* Function that could be executed before any other method in Register Controller
 	*/
 	protected function before()
 	{
-		//TU STAVITI DA AKO JE KORISNIK LOGIRAN NE MOŽE PRISTUPITI
+		global $session;
+
+		return !$session->is_signed_in()? true : redirect('home');
 	}
 
 	/**
-	* Function that could be executed after any other method in Posts Controller
+	* Function that could be executed after any other method in Register Controller
 	*/
 	protected function after()
 	{
+		//Check if user is not logged in before allow access to Register controller methods
+		if(!isset($_SESSION['user']) && !isset($_SESSION['username'])) {
+			return true;
+		}
 
+		return redirect('home');
 	}
 
 	/**
@@ -32,6 +39,8 @@ class Register extends Controller
 	*/
 	public function indexAction()
 	{
+		global $session;
+
 		//Check if register form is submitted
 		if (isset($_POST['submit'])) {
 			$validated = Validator::validateRegistration($_POST['username'], $_POST['email'], $_POST['password'], $_POST['password-confirm']);
@@ -44,12 +53,15 @@ class Register extends Controller
 
 				$password = password_hash($_POST['password'], PASSWORD_ARGON2I);
 				$user->password = $password;
+				
+				if ($user->register() == true) {
 
-				if ($user->save()) {
-					echo "User registered";
-				} else {
-					echo "User with selected username and/or password is already registered.";
+					$session->login($user->id, $user->username);
+					return redirect('home');
 				}
+
+				return View::renderTemplate('Auth/register.php');
+				
 			} else {
 				print_r($validated);
 			}

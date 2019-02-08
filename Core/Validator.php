@@ -6,7 +6,10 @@ class Validator
 	static function validateRegistration($username, $email, $password, $password_confirmation)
 	{
 		$message = [];
-
+		$username = trim($username);
+		$email = trim($email);
+		$password = trim($password);
+		
 		//Validation logic here
 		if (($username && $email && $password) != '') {
 			if (!preg_match('/^[A-Za-z0-9]{3,}$/', $username)) {
@@ -33,12 +36,4 @@ class Validator
 		}
 	}
 
-	static function validateLogin($username, $password)
-	{
-		$message = '';
-
-		//Validation logic here
-
-		return true;
-	}
 }

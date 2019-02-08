@@ -11,16 +11,17 @@
  	<div class="form">
  		<form action="" method="post">
 	 		<div class="form-group">
-	 			<label for="login-username">Username:</label>
-	 			<input class="form-control" type="text" placeholder="Your Username.." id="login-username">
+	 			<label for="username">Username:</label>
+	 			<input class="form-control" type="text" name="username" placeholder="Your Username.." id="username">
 	 		</div>
 	 		<div class="form-group">
-	 			<label for="login-password">Password:</label>
-	 			<input class="form-control" type="password" placeholder="Your Password.." id="login-password"> 			
+	 			<label for="password">Password:</label>
+	 			<input class="form-control" type="password" name="password" placeholder="Your Password.." id="password"> 			
 	 		</div>
 	 		<button type="submit" name="submit" class="btn btn-primary float-right">Login</button>
  		</form>
  	</div>
  </div>
 </div>
+
 {% endblock %}

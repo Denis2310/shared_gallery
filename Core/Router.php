@@ -2,9 +2,7 @@
 namespace Core;
 
 /**
-* Router Class
-*
-* PHP 7.2.
+* Router Class - for routes management
 */
 class Router
 {
@@ -55,7 +53,7 @@ class Router
 	*
 	* @param $url string
 	*
-	* @return boolean true if route exist, false if rout not found
+	* @return boolean true if route exist, false if route not found
 	*/
 	public function match_route($url)
 	{
@@ -81,13 +79,16 @@ class Router
 	*
 	* @return array
 	*/
-	public function get_parameters()
+	/*public function get_parameters()
 	{
 		return $this->parameters;
 	}
-
+	*/
+	
 	/**
 	* Change url to studlyCaps
+	*
+	* @param $url string
 	*
 	* @return string
 	*/
@@ -107,6 +108,8 @@ class Router
 
 	/**
 	* Change url to camelCase
+	*
+	* @param $url string
 	*
 	* @return string
 	*/

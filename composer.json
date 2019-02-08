@@ -5,8 +5,9 @@
 
 	"autoload": {
 		"psr-4": {
-			"App\\": "App/",  //Moze i App\\Controllers\\: App/Controllers/ odnosno cijeli namespace sa putanjom do klasa
+			"App\\": "App/", 
 			"Core\\": "Core/"
-		}
+		},
+		"files": ["Core/Helpers.php"]
 	}
 }

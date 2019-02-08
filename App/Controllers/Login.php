@@ -4,6 +4,7 @@ namespace App\Controllers;
 use \Core\Controller;
 use \Core\View;
 use \Core\Session;
+use \App\Models\User;
 
 /**
 * Login Controller
@@ -15,7 +16,9 @@ class Login extends Controller
 	*/
 	protected function before()
 	{
+		global $session;
 
+		return !$session->is_signed_in()? true : redirect('home');
 	}
 
 	/**
@@ -26,17 +29,27 @@ class Login extends Controller
 
 	}
 
-	public function index()
+	public function indexAction()
 	{
+		global $session;
+
 		//Check if user login form is submited
 		if (isset($_POST['submit'])) {
+			$username = trim($_POST['username']);
+			$password = trim($_POST['password']);
 
-			echo "login form submitted";
+			if($username && $password != '') {
+				$user = User::login($username, $password); //User::find()
 
-			//Validator to validate user login data
+				if ($user==true) {
+					$session->login($user->id, $user->username);
+					//Dodati message
+					return redirect('home');
+				}
 
+				return View::renderTemplate('Auth/login.php');
+			}
 			//If logged in register to SESSION, if not redirect to login with message
-
 		} else {
 			return View::renderTemplate('Auth/Login.php');
 		}

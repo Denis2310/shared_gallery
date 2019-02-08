@@ -1,7 +1,7 @@
 <?php
 
 /*
-Twig
+Add Twig template to project
 */
 require dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -12,13 +12,13 @@ error_reporting(E_ALL);
 set_error_handler('Core\Error::errorHandler');
 set_exception_handler('Core\Error::exceptionHandler');
 
+$session = new Core\Session();
+
 /* First way for loading classes 
 require "..\Core\Router.php";
 require "..\App\Controllers\Home.php";
 require "..\App\Controllers\Posts.php";
-*/
 
-/*
 //Second way for loading classes
 spl_autoload_register(function ($class_name) {
 	$root  = dirname(__DIR__);
@@ -29,23 +29,20 @@ spl_autoload_register(function ($class_name) {
 });
 */
 
-/*
-echo "<h3 align='center'>Framework front controller</h3>";
-echo "Query string: ". $_SERVER['QUERY_STRING'];
+/**
+* Router object
+*
+* Add routes to Router
 */
-
 $router = new Core\Router();
+
 $router->add_route('', ['controller'=>'Home', 'action'=>'index']);
 $router->add_route('login', ['controller'=>'Login', 'action'=>'index']);
 $router->add_route('register', ['controller'=>'Register', 'action'=>'index']);
 $router->add_route('{controller}/{action}');
 $router->add_route('{controller}/{id:\d+}/{action}');
 $router->add_route('admin/{action}/{controller}');
-
-/*
-echo "<pre>";
-echo htmlspecialchars(print_r($router->show_routes(), true));
-echo "</pre>";
-*/
+$router->add_route('home', ['controller'=>'User', 'action'=>'index']);
+$router->add_route('logout', ['controller'=>'User', 'action'=>'logout']);
 
 $router->dispatch($_SERVER['QUERY_STRING']);

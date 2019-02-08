@@ -15,7 +15,13 @@
 <!-- Application Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<ul class="nav">
-		<a class="navbar-brand" href="/imager/public">Shared Gallery</a>
+		<a class="navbar-brand" href="/shared_gallery/public">Shared Gallery</a>
+	</ul>
+	<ul class= "nav ml-auto">
+		{% if session.is_signed_in() %}
+			<li>Welcome {{ session.username }}, &nbsp;</li>
+			<a href="logout">Logout</a>
+		{% endif %}
 	</ul>
 </nav>
 <!-- End Navigation -->

@@ -16,30 +16,69 @@ class User extends Model
 	/**
 	* Save registered user to database
 	*
-	* @return boolean
+	* @return boolean true if user is registered, otherwise false
 	*/
-	public function save()
+	public function register()
 	{
 		$db = static::getDB();
 
-		if ($this->checkUser($db)) {
+		if ($this->checkIfExists($db)) {
 			$sql = 'INSERT INTO shared_gallery_db.' . self::$db_table . ' (' . implode(', ', self::$db_table_fields) . ') VALUES (?,?,?)';
 			$stmt = $db->prepare($sql);
 			$stmt->execute([$this->username, $this->email, $this->password]);
 
-			return $stmt ? true : false;
+			if ($stmt == true) {
+				$this->id = $db->lastInsertId();
+
+				return true;
+			}
 		}
 
 		return false;
 	}
 
 	/**
-	* Check if user already exists in database
+	* Login function - check if user exists in database
+	*
+	* @param string $username
+	* @param string $password
+	*
+	* @return array of user data if user exists, boolean false if user not found
+	*/
+	static function login($username, $password)
+	{
+		$db = static::getDB();
+		$sql = 'SELECT * FROM shared_gallery_db.' . self::$db_table . ' WHERE username=:username';
+		$stmt = $db->prepare($sql);
+		$stmt->bindValue(':username', $username);
+		$stmt->execute();
+
+		//IF USER EXIST CHECK PASSWORD
+		if ($stmt->rowCount() > 0) {
+			$db_user = $stmt->fetch(PDO::FETCH_ASSOC);
+			$db_user_password = $db_user['password'];
+			
+			if (password_verify($password, $db_user_password)) {
+				$user = new User();
+				$user->username =  $db_user['username'];
+				$user->email = $db_user['email'];
+				$user->id = $db_user['id'];
+
+				return $user;
+			}
+		}
+		
+		return false;
+	}
+
+	/**
+	* Check if username or email exists in database - for registration
 	*
 	* @param $db PDO object
+	*
 	* @return boolean
 	*/
-	private function checkUser($db)
+	private function checkIfExists($db)
 	{
 		$sql = 'SELECT * FROM shared_gallery_db.' . self::$db_table . ' WHERE username = :username OR email = :email';
 		$stmt = $db->prepare($sql);
@@ -47,10 +86,6 @@ class User extends Model
 		$stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
 		$stmt->execute();
 
-		if ($stmt->rowCount() > 0) {
-			return false;
-		}
-
-		return true;
+		return $stmt->rowCount() == 0 ? true : false;  //to promjenio pa provjeriti da li  to radi umjesto ovog komentiranog gore
 	}	
 }

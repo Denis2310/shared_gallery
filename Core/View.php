@@ -7,7 +7,7 @@ namespace Core;
 class View
 {
 	/**
-	* Render View file 
+	* Render View file without Twig template
 	*
 	* @param string $view View file to require
 	* @param array $args Array of variables to pass to view
@@ -23,7 +23,7 @@ class View
 		if (is_readable($file)) {
 			require $file;			
 		} else {
-			throw new \Exception("file '$file' not found.");			
+			throw new \Exception("File '$file' not found.");			
 		}
 	}
 
@@ -38,6 +38,9 @@ class View
 	public static function renderTemplate($view, $args = [])
 	{
 		static $twig = null;
+		global $session;
+		
+		$args['session'] = $session;
 
 		if ($twig === null) {
 			$loader = new \Twig_Loader_Filesystem(dirname(__DIR__) . '/App/Views/');
