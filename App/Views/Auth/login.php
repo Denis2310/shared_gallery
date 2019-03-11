@@ -8,6 +8,9 @@
 
 <div class="row">
  <div class="col-md-6 offset-md-3">
+ 	{% if session.message != '' %}
+ 	<div class="alert alert-primary">{{session.message()}}</div>
+ 	{% endif %}
  	<div class="form">
  		<form action="" method="post">
 	 		<div class="form-group">

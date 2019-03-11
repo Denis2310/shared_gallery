@@ -10,10 +10,50 @@ a:hover {
 	text-decoration: none;
 }
 
+a.delete-image {
+	color: red;
+}
+
 .app-content {
-	padding-top: 30px;
+	padding-top: 100px;
 }
 
 .form, .btn-images-number, .home-text {
 	margin-top: 25px;
+}
+
+/*.main-heading {
+	margin-top: 75px;
+}*/
+
+.upload_container input {
+	display: none;
+}
+
+.upload_container .circle_upload {
+	margin-bottom: 15px;
+	height: 50px;
+	width: 50px;
+	background-color: #007bff;
+	border-radius: 25px;
+}
+
+.upload_container .circle_upload:hover {
+	background-color: #0069d9;
+}
+
+ .upload_container .circle_upload .fas{
+	margin-top: 12px;
+	font-size: 27px;
+	color: white;
+}
+
+table img {
+	width: 70px;
+	height: 70px;
+}
+
+h3.uploaded-images {
+	margin-top: 50px;
+	margin-bottom: 20px;
 }

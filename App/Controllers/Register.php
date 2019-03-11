@@ -18,7 +18,7 @@ class Register extends Controller
 	{
 		global $session;
 
-		return !$session->is_signed_in()? true : redirect('home');
+		return !$session->is_signed_in()? true : redirect('/shared_gallery/public');
 	}
 
 	/**
@@ -26,16 +26,13 @@ class Register extends Controller
 	*/
 	protected function after()
 	{
-		//Check if user is not logged in before allow access to Register controller methods
-		if(!isset($_SESSION['user']) && !isset($_SESSION['username'])) {
-			return true;
-		}
 
-		return redirect('home');
 	}
 
 	/**
 	* Registration form view
+	*
+	* @return View register.php or redirects to management.php if registered
 	*/
 	public function indexAction()
 	{
@@ -54,19 +51,22 @@ class Register extends Controller
 				$password = password_hash($_POST['password'], PASSWORD_ARGON2I);
 				$user->password = $password;
 				
-				if ($user->register() == true) {
-
+				if ($user->save() == true) {
 					$session->login($user->id, $user->username);
-					return redirect('home');
+					$session->message('You are successfully registered and logged in!');
+
+					return redirect('management');
 				}
 
-				return View::renderTemplate('Auth/register.php');
+				$session->message('Username and/or password already exist! :(');
+				return redirect('register');
 				
 			} else {
-				print_r($validated);
+				
+				$session->message($validated);
+				return redirect('register');
 			}
 
-		//AKO JE KORISNIK REGISTRIRAN SPREMITI GA U SESSION I REDIREKTATI NA HOME, U SUPROTNOM VRAĆAJ NA REGISTER
 		} else {
 			return View::renderTemplate('Auth/register.php');
 		}

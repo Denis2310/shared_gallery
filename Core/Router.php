@@ -141,7 +141,11 @@ class Router
 				$method = $this->getCamelCase($this->parameters['action']);
 				
 				if (preg_match('/action$/i', $method) == 0) {
-					$controller_object->$method();
+					if (array_key_exists('id', $this->parameters)) {
+						$controller_object->$method($this->parameters['id']);
+					} else {
+						$controller_object->$method();
+					}
 				} else {
 					throw new \Exception("Method '$method' in $controller can't be called directly, remove the action suffix");
 				}

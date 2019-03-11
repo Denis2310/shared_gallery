@@ -5,7 +5,10 @@
 
 	<!-- Add Bootstrap Template to views -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
 
 	<!-- Styles -->
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -13,14 +16,15 @@
 <body>
 
 <!-- Application Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
 	<ul class="nav">
-		<a class="navbar-brand" href="/shared_gallery/public">Shared Gallery</a>
+		<a class="navbar-brand" href="management">Shared Gallery</a>
 	</ul>
 	<ul class= "nav ml-auto">
 		{% if session.is_signed_in() %}
-			<li>Welcome {{ session.username }}, &nbsp;</li>
-			<a href="logout">Logout</a>
+			<li class="nav-item"><a class="nav-link" href="management">Home</a></li>
+			<li class="nav-item"><a class="nav-link" href="myaccount">My Account</a></li>
+			<li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
 		{% endif %}
 	</ul>
 </nav>

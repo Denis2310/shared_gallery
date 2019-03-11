@@ -9,6 +9,11 @@ use App\Config;
 */
 abstract class Model
 {
+	/**
+	* Initialize PDO database connection
+	*
+	* @return $db PDO connection
+	*/
 	static function getDB()
 	{
 		static $db = null;
@@ -27,7 +32,9 @@ abstract class Model
 			    //If database does not exists, create it
 			    if ($result->fetchColumn() == 0) {
 			    	$sql = "CREATE DATABASE " . $database; //to promjenio pa provjeriti funkcionalnost da li bi radilo kada bi pisao samo ime tablice u queryima a ne i ime baze podataka
+			    	$sql2 = "USE " . $database;
 			    	$db->exec($sql);
+			    	$db->exec($sql2);
 			    } else {
 			    	$db->exec('USE ' . $database);
 			    }
@@ -54,7 +61,7 @@ abstract class Model
 		$sql = 'SELECT * FROM ' . static::$db_table;
 		$stmt = $db->prepare($sql);
 		$stmt->execute();
-		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		return $result;
 	}
@@ -74,5 +81,15 @@ abstract class Model
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		return $result;
+	}
+
+	static function sql($sql)
+	{
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		return $result;		
 	}
 }

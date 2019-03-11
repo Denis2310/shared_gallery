@@ -39,7 +39,7 @@ class View
 	{
 		static $twig = null;
 		global $session;
-		
+
 		$args['session'] = $session;
 
 		if ($twig === null) {

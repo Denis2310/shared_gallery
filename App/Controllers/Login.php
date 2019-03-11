@@ -18,7 +18,7 @@ class Login extends Controller
 	{
 		global $session;
 
-		return !$session->is_signed_in()? true : redirect('home');
+		return !$session->is_signed_in()? true : redirect('/shared_gallery/public');
 	}
 
 	/**
@@ -29,6 +29,11 @@ class Login extends Controller
 
 	}
 
+	/**
+	* Show login view
+	*
+	* @return View login.php or redirects to management.php view if logged in
+	*/
 	public function indexAction()
 	{
 		global $session;
@@ -41,18 +46,21 @@ class Login extends Controller
 			if($username && $password != '') {
 				$user = User::login($username, $password); //User::find()
 
-				if ($user==true) {
+				if ($user == true) {
 					$session->login($user->id, $user->username);
-					//Dodati message
-					return redirect('home');
+					$session->message('You are successfully logged in!');
+					return redirect('management');
 				}
-
-				return View::renderTemplate('Auth/login.php');
+				
+				$session->message('Username and/or password are incorrect');
+				return redirect('login');
 			}
-			//If logged in register to SESSION, if not redirect to login with message
-		} else {
-			return View::renderTemplate('Auth/Login.php');
+
+			$session->message('All fields are required.');
+			return redirect('login');
 		}
+		
+		return View::renderTemplate('Auth/Login.php');
 	}
 
 }

@@ -15,7 +15,7 @@ class Home extends Controller
 	{
 		global $session;
 		
-		return !$session->is_signed_in()? true : redirect('home');
+		return !$session->is_signed_in()? true : redirect('management');
 	}
 
 	/**
@@ -28,6 +28,6 @@ class Home extends Controller
 
 	public function indexAction()
 	{
-		return View::renderTemplate('welcome.php');
+		return View::renderTemplate('home.php');
 	}
 }

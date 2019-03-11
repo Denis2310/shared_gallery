@@ -4,11 +4,13 @@
 
 
 {% block body %}
-
-<h2 align='center'>Registration</h3>
+ <h2 align='center'>Registration</h2>
 
 <div class="row">
  <div class="col-md-6 offset-md-3">
+ 	{% if session.message != '' %}
+ 	<div class="alert alert-primary">{{session.message()}}</div>
+ 	{% endif %}
  	<div class="form">
  		<form action="" method="POST">
 	 		<div class="form-group">
