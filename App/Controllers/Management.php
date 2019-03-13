@@ -90,13 +90,13 @@ class Management extends Controller
 		global $session;
 
 		$image = Image::findById($image_id);
-		if (empty($image) || $image['user_id'] != $session->user_id) {
+		if (empty($image) || $image->user_id != $session->user_id) {
 			$session->message('Something went wrong!');
 
 			return redirect('/shared_gallery/public/management');
 		}
 
-		$filename = $image['path'];
+		$filename = $image->path;
 		//$directory = $_SERVER['DOCUMENT_ROOT'] . '/shared_gallery/public/images/' . $session->user_id;
 		$directory = $_SERVER['DOCUMENT_ROOT'] . '/shared_gallery/public/images/' . $session->user_id;
 		$path = $directory . '/' . $filename;

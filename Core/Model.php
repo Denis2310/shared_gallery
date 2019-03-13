@@ -56,14 +56,21 @@ abstract class Model
 	* @return $result Associative array
 	*/
 	static function findAll()
-	{
+	{	
+		$objects_array = array();
 		$db = static::getDB();
 		$sql = 'SELECT * FROM ' . static::$db_table;
 		$stmt = $db->prepare($sql);
 		$stmt->execute();
-		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$result_set = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-		return $result;
+		//return $result;
+		foreach ($result_set as $result) {
+			$object = static::instantation($result);
+			$objects_array[] = $object;
+		}
+
+		return $objects_array;
 	}
 
 	/**
@@ -80,7 +87,9 @@ abstract class Model
 		$stmt->execute();
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		return $result;
+		//return $result;
+		$object = static::instantation($result);
+		return $object;
 	}
 
 	static function sql($sql)
@@ -91,5 +100,19 @@ abstract class Model
 		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		return $result;		
+	}
+
+	static function instantation($result)
+	{
+		$class = get_called_class();
+		$the_object = new $class;
+
+		foreach ($result as $attribute => $value) {
+			if (property_exists($the_object, $attribute)) {
+				$the_object->$attribute = $value;
+			}
+		}
+
+		return $the_object;
 	}
 }

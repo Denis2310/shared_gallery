@@ -45,7 +45,6 @@ $router->add_route('admin/{action}/{controller}');
 $router->add_route('management', ['controller'=>'Management', 'action'=>'index']);
 $router->add_route('management/image/{id:\d+}', ['controller'=>'User', 'action'=>'delete_image']);
 $router->add_route('myaccount', ['controller'=>'MyAccount', 'action'=>'index']);
-//$router->add_route('myaccount', ['controller'=>'User', 'action'=>'my_account']);
 $router->add_route('logout', ['controller'=>'Management', 'action'=>'logout']);
 
 $router->dispatch($_SERVER['QUERY_STRING']);

@@ -11,7 +11,7 @@ class Image extends Model
 {
 	protected static $db_table = 'images';
 	protected static $db_table_fields = array('user_id', 'path');
-	public $user_id, $path;
+	public $id, $user_id, $path;
 
 	/**
 	* Save image to database
@@ -32,7 +32,7 @@ class Image extends Model
 	static function delete($image_id)
 	{
 		$db = static::getDB();
-		$sql = 'DELETE FROM ' . self::$db_table . ' WHERE id=' . $id;
+		$sql = 'DELETE FROM ' . self::$db_table . ' WHERE id=' . $image_id;
 		
 		if ($db->exec($sql)) {
 			return true;
