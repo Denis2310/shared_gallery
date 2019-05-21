@@ -13,10 +13,10 @@
 				<input class="" type="file" name="file" id="file">
 			</div>
 			<button type="submit" name="upload-image" class="btn btn-primary btn-lg">Upload</button>
-			{% if session.message != '' %}
-			<div class="alert alert-primary col-md-6 offset-md-3 mt-2">{{session.message}}</div>
-			{% endif %}
 		</form>
+		{% if session.message != '' %}
+		<div class="alert alert-primary col-md-6 offset-md-3 mt-2">{{session.message}}</div>
+		{% endif %}
 	</div>
 </div>
 
@@ -28,7 +28,9 @@
 				<th> Id </th>
 				<th> Image Path </th>
 				<th> Owner </th>
+				<th> Owner Email </th>
 				<th> Image </th>
+				<th> Edit </th>
 			</thead>
 			<tbody>
 				{% for image in images %}
@@ -36,7 +38,8 @@
 						<td> {{image.id}} </td>
 						<td> {{image.path}} </td>
 						<td> {{image.username}} </td>
-						<td> <img class="rounded" src="../public/images/{{image.user_id}}/{{image.path}}"> </td>
+						<td> {{image.email}} </td>
+						<td align='center'> <img class="rounded" src="../public/images/{{image.user_id}}/{{image.path}}"> </td>
 						{% if image.user_id == session.user_id %}
 						<td> <a class="delete-image" href="management/{{image.id}}/delete"> Delete </a> </td>
 						{% endif %}

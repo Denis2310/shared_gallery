@@ -12,6 +12,7 @@ a:hover {
 
 a.delete-image {
 	color: red;
+	font-weight: bold;
 }
 
 .app-content {
@@ -21,10 +22,6 @@ a.delete-image {
 .form, .btn-images-number, .home-text {
 	margin-top: 25px;
 }
-
-/*.main-heading {
-	margin-top: 75px;
-}*/
 
 .upload_container input {
 	display: none;
@@ -47,7 +44,9 @@ a.delete-image {
 	font-size: 27px;
 	color: white;
 }
-
+table tr {
+	border: none;
+}
 table img {
 	width: 70px;
 	height: 70px;
@@ -57,3 +56,4 @@ h3.uploaded-images {
 	margin-top: 50px;
 	margin-bottom: 20px;
 }
+

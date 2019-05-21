@@ -10,10 +10,10 @@
 <div class="row">
  <div class="col-md-6 offset-md-3">
  	{% if session.message != '' %}
- 	<div class="alert alert-primary">{{session.message()}}</div>
+ 	<div class="alert alert-primary text-center">{{session.message()}}</div>
  	{% endif %}
  	<div class="form">
- 		<form action="" method="post">
+ 		<form action="update" method="post">
 	 		<div class="form-group">
 	 			<label for="username">Username:</label>
 	 			<input class="form-control" type="text" placeholder="{{user.username}}" id="username" disabled>
@@ -23,16 +23,16 @@
 	 			<input class="form-control" type="email" placeholder="{{user.email}}" id="email" disabled>
 	 		</div>
 	 		<div class="form-group">
-	 			<label for="old-password">Old Password:</label>
-	 			<input class="form-control" type="password" name="old-password" placeholder="Enter current password.." id="old-password"> 			
+	 			<label for="old-password">Password:</label>
+	 			<input class="form-control" type="password" name="old-password" placeholder="Enter current password.." id="old-password">
 	 		</div>
 	 		<div class="form-group">
 	 			<label for="new-password">New Password:</label>
-	 			<input class="form-control" type="password" name="new-password" placeholder="New password.." id="new-password"> 
+	 			<input class="form-control" type="password" name="new-password" placeholder="New password.." id="new-password">
 	 		</div>
 	 		<div class="form-group">
-	 			<label for="password-confirm">Confirm password:</label>
-	 			<input class="form-control" type="password" name="password-confirm" placeholder="Confirm new password.." id="password-confirm"> 
+	 			<label for="password-confirm">Confirm New:</label>
+	 			<input class="form-control" type="password" name="password-confirm" placeholder="Confirm new password.." id="password-confirm">
 	 		</div>
 	 		<a onclick="return confirm('Your account will be deleted.');" href="myaccount/delete" class="btn btn-danger"> Remove Account </a>
 	 		<button type="submit" name="edit-user" class="btn btn-primary float-right"> Save Changes </button>

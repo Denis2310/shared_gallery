@@ -80,15 +80,22 @@ class User extends Model
      */
     private function checkIfExists($db)
     {
-        $sql = 'SELECT * FROM ' . self::$db_table . ' WHERE username = :username OR email = :email';
+        //$sql = 'SELECT * FROM ' . self::$db_table . ' WHERE username = :username OR email = :email';
+        $sql = 'SELECT * FROM ' . self::$db_table . ' WHERE username = ? OR email = ?';
         $stmt = $db->prepare($sql);
-        $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
-        $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
-        $stmt->execute();
+        //$stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
+        //$stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $stmt->execute([$this->username, $this->email]); //PROMJENJENO PA PROVJERITI RADI LI PRI REGISTRACIJI
 
         return $stmt->rowCount() == 0 ? true : false; //to promjenio pa provjeriti da li  to radi umjesto ovog komentiranog gore
     }
-
+    /**
+     * Delete user account and his related images
+     * *
+     * @param  $user_id Integer
+     *
+     * @return boolean true if user is deleted otherwise false
+     */
     public static function deleteAll($user_id)
     {
         $db = static::getDB();
@@ -103,7 +110,11 @@ class User extends Model
 
         return false;
     }
-
+    /**
+     * Update user - password
+     *
+     * @return boolean true if password is updated otherwise false
+     */
     public function update()
     {
         $db = static::getDB();

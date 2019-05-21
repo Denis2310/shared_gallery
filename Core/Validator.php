@@ -41,10 +41,10 @@ class Validator
 
         if ($is_valid_image != false) {
             if ($image_type != 'jpg' && $image_type != 'png') {
-                $message .= 'Sorry, only JPG and PNG formats are allowed.';
+                $message .= 'Sorry, only JPG and PNG image formats are allowed.';
             }
         } else {
-            $message .= 'Invalid file.';
+            $message .= 'File is not an image.';
         }
 
         return $message != '' ? $message : true;

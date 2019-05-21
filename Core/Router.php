@@ -2,180 +2,181 @@
 namespace Core;
 
 /**
-* Router Class - for routes management
-*/
+ * Router Class - for routes management
+ */
 class Router
 {
-	/**
-	* Routes table
-	*
-	* @var array
-	*/
-	private $routes_table = [];
+    /**
+     * Routes table
+     *
+     * @var array
+     */
+    private $routes_table = [];
 
-	/**
-	* Routes table
-	*
-	* @var array
-	*/
-	private $parameters = [];
-	
-	/**
-	* Add routes to routing table
-	*
-	* @param $url string
-	* @param $params array
-	*
-	* @return void
-	*/
-	public function add_route($url, $params = [])
-	{
-		$route = preg_replace('/\//', '\\/', $url); //Pronađi znak / (potrebno ga je escape sa \/), kad je pronađen stavi u url taj znak
-		$route = preg_replace('/\{([a-z-]+)\}/', '(?P<\1>[a-z-]+)', $route);
-		$route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
-		$route = '/^' . $route . '$/i';
-		
-		$this->routes_table[$route] = $params;
-	}
+    /**
+     * Routes table
+     *
+     * @var array
+     */
+    private $parameters = [];
 
-	/**
-	* Show registered routes in routing table
-	*
-	* @return array
-	*/
-	public function show_routes()
-	{
-		echo $this->routes_table;
-	}
+    /**
+     * Add routes to routing table
+     *
+     * @param $url string
+     * @param $params array
+     *
+     * @return void
+     */
+    public function add_route($url, $params = [])
+    {
+        $route = preg_replace('/\//', '\\/', $url); //Pronađi znak / (potrebno ga je escape sa \/), kad je pronađen stavi u url taj znak
+        $route = preg_replace('/\{([a-z-]+)\}/', '(?<\1>[a-z-]+)', $route);
+        $route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?<\1>\2)', $route);
+        $route = '/^' . $route . '$/i';
 
-	/**
-	* Match registered route in routing table
-	*
-	* @param $url string
-	*
-	* @return boolean true if route exist, false if route not found
-	*/
-	public function match_route($url)
-	{
-		foreach ($this->routes_table as $route => $parameters) {
-			if (preg_match($route, $url, $matches)) {
-				foreach ($matches as $key => $match) {
-					if(is_string($key)) {
-						$parameters[$key] = $match;
-					}
-				}
+        $this->routes_table[$route] = $params;
+    }
 
-				$this->parameters = $parameters;
+    /**
+     * Show registered routes in routing table
+     *
+     * @return array
+     */
+    public function show_routes()
+    {
+        print_r($this->routes_table);
+    }
 
-				return true;
-			}
-		}
+    /**
+     * Match registered route in routing table
+     *
+     * @param $url string
+     *
+     * @return boolean true if route exist, false if route not found
+     */
+    public function match_route($url)
+    {
+        foreach ($this->routes_table as $route => $parameters) {
+            if (preg_match($route, $url, $matches)) {
+                foreach ($matches as $key => $match) {
+                    if (is_string($key)) {
+                        $parameters[$key] = $match;
+                    }
+                }
 
-		return false;
-	}
+                $this->parameters = $parameters;
 
-	/**
-	* Get parameters for matched route
-	*
-	* @return array
-	*/
-	/*public function get_parameters()
-	{
-		return $this->parameters;
-	}
-	*/
-	
-	/**
-	* Change url to studlyCaps
-	*
-	* @param $url string
-	*
-	* @return string
-	*/
-	private function getStudlyCaps($url)
-	{
-		$url = strtolower($url);
+                return true;
+            }
+        }
 
-		if (strpos($url, '-')) {
-			$url = str_replace('-', ' ', $url);
-		}
+        return false;
+    }
 
-		$url = ucwords($url);
-		$url = str_replace(' ', '', $url);
+    /**
+     * Get parameters for matched route
+     *
+     * @return array
+     */
+    /*public function get_parameters()
+    {
+    return $this->parameters;
+    }
+     */
 
-		return $url;
-	}
+    /**
+     * Change url to studlyCaps
+     *
+     * @param $url string
+     *
+     * @return string
+     */
+    private function getStudlyCaps($url)
+    {
+        $url = strtolower($url);
 
-	/**
-	* Change url to camelCase
-	*
-	* @param $url string
-	*
-	* @return string
-	*/
-	private function getCamelCase($url)
-	{
-		$url = strtolower($url);	
-		$url = $this->getStudlyCaps($url);
-		$url = lcfirst($url);
+        if (strpos($url, '-')) {
+            $url = str_replace('-', ' ', $url);
+        }
 
-		return $url;
-	}
+        $url = ucwords($url);
+        $url = str_replace(' ', '', $url);
 
-	/**
-	* Function to dispatch route to corresponding controller and route
-	*
-	* @param $url string
-	*
-	* @return void
-	*/
-	public function dispatch($url)
-	{
-		$url = $this->removeQueryStringVariables($url);
+        return $url;
+    }
 
-		if ($this->match_route($url)) {
-			$controller = 'App\\Controllers\\' . $this->getStudlyCaps($this->parameters['controller']);
+    /**
+     * Change url to camelCase
+     *
+     * @param $url string
+     *
+     * @return string
+     */
+    private function getCamelCase($url)
+    {
+        $url = strtolower($url);
+        $url = $this->getStudlyCaps($url);
+        $url = lcfirst($url);
 
-			if (class_exists($controller)) {
-				$controller_object = new $controller($this->parameters);
-				$method = $this->getCamelCase($this->parameters['action']);
-				
-				if (preg_match('/action$/i', $method) == 0) {
-					if (array_key_exists('id', $this->parameters)) {
-						$controller_object->$method($this->parameters['id']);
-					} else {
-						$controller_object->$method();
-					}
-				} else {
-					throw new \Exception("Method '$method' in $controller can't be called directly, remove the action suffix");
-				}
-			} else {
-				throw new \Exception("Class '$controller' does not exist.");
-			}
-		} else {
-			throw new \Exception("The selected route does not exist.", 404);
-		}
-	}
+        return $url;
+    }
 
-	/**
-	* Remove query string variables from route
-	*
-	* @param $url string
-	*
-	* @return string
-	*/
-	private function removeQueryStringVariables($url)
-	{
-		if ($url != '') {
-			$parts = explode('&', $url, 2);
+    /**
+     * Function to dispatch route to corresponding controller and route
+     *
+     * @param $url string
+     *
+     * @return void
+     */
+    public function dispatch($url)
+    {
+        $url = $this->removeQueryStringVariables($url);
 
-			if (strpos($parts[0], '=') === false) {
-				$ur = $parts[0];
-			} else {
-				$url = '';
-			}
-		}
+        if ($this->match_route($url)) {
+            $controller = 'App\\Controllers\\' . $this->getStudlyCaps($this->parameters['controller'])
+                . 'Controller';
 
-		return $url;
-	}
+            if (class_exists($controller)) {
+                $controller_object = new $controller($this->parameters);
+                $method = $this->getCamelCase($this->parameters['action']);
+
+                if (preg_match('/action$/i', $method) == 0) {
+                    if (array_key_exists('id', $this->parameters)) {
+                        $controller_object->$method($this->parameters['id']);
+                    } else {
+                        $controller_object->$method();
+                    }
+                } else {
+                    throw new \Exception("Method '$method' in $controller can't be called directly, remove the action suffix");
+                }
+            } else {
+                throw new \Exception("Class '$controller' does not exist.");
+            }
+        } else {
+            throw new \Exception("The selected route does not exist.", 404);
+        }
+    }
+
+    /**
+     * Remove query string variables from route
+     *
+     * @param $url string
+     *
+     * @return string
+     */
+    private function removeQueryStringVariables($url)
+    {
+        if ($url != '') {
+            $parts = explode('&', $url, 2);
+
+            if (strpos($parts[0], '=') === false) {
+                $url = $parts[0];
+            } else {
+                $url = '';
+            }
+        }
+
+        return $url;
+    }
 }

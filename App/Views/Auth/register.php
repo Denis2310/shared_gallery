@@ -2,7 +2,6 @@
 
 {% block title %} Register to Shared Gallery {% endblock %}
 
-
 {% block body %}
  <h2 align='center'>Registration</h2>
 
@@ -23,11 +22,11 @@
 	 		</div>
 	 		<div class="form-group">
 	 			<label for="password">Password:</label>
-	 			<input class="form-control" type="password" name="password" placeholder="Your Password.." id="password"> 			
+	 			<input class="form-control" type="password" name="password" placeholder="Your Password.." id="password">
 	 		</div>
 	 		<div class="form-group">
 	 			<label for="password-confirm">Confirm Password:</label>
-	 			<input class="form-control" type="password" name="password-confirm" placeholder="Confirm Password.." id="password-confirm"> 			
+	 			<input class="form-control" type="password" name="password-confirm" placeholder="Confirm Password.." id="password-confirm">
 	 		</div>
 	 		<button type="submit" name="submit" class="btn btn-primary float-right">Register</button>
  		</form>
